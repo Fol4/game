@@ -89,7 +89,7 @@ my_missiles_data =[]
 enemy_missiles_data = []
 BASE_X , BASE_Y = 0 , -350
 enemy_spawn_detector = 0
-base_hp = 100
+base_hp = 1000
 game_over_constant = 0
 
 'Window settings'
