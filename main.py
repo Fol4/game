@@ -3,16 +3,6 @@ import math
 import random
 
 
-def info_heading(x1,y1,x2,y2):
-    dx = x2-x1
-    dy = y2-y1
-    x = (dx**2+dy**2)**0.5
-    cos_alpha = dx/x
-    alpha = math.degrees(math.acos(cos_alpha))
-    if dy < 0 :
-        alpha = -alpha
-    return alpha
-
 def my_missile_spawn(x,y):
     my_missile = turtle.Turtle(visible  = False)
     my_missile.color('white')
