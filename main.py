@@ -72,18 +72,26 @@ def base_health():
         status = enemy_info['status']
         if status == 'explode':
             base_hp -= 100
-            if base_hp == 0 :
-                base.clear()
-                base.hideturtle()
+
+def game_over():
+    global base_hp , game_over_constant
+    if base_hp <= 0 and game_over_constant  == 0:
+        base.clear()
+        base.hideturtle()
+        game_over_write = turtle.Turtle()
+        game_over_write.write("GAME OVER", True, align="center" ,font=("Arial", 100, "normal"))
+        game_over_write.penup()
+        game_over_constant = 1
 
 
 
-'Constatnt and database'
+'Constant and database'
 my_missiles_data =[]
 enemy_missiles_data = []
 BASE_X , BASE_Y = 0 , -350
 enemy_spawn_detector = 0
-base_hp = 500
+base_hp = 100
+game_over_constant = 0
 
 'Window settings'
 window = turtle.Screen()
@@ -107,11 +115,14 @@ while True:
     if enemy_spawn_detector % 100 == 0:
         enemy_spawn_detector = 0
         enemy_missile_spawn()
-    base_health()
-    missile_contact()
-    flight_of_missile(data = my_missiles_data)
-    flight_of_missile(data = enemy_missiles_data)
-
+    if game_over_constant  == 0:
+        game_over()
+        base_health()
+        missile_contact()
+        flight_of_missile(data = my_missiles_data)
+        flight_of_missile(data = enemy_missiles_data)
+    else:
+        game_over()
 
 
 
