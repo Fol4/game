@@ -80,7 +80,6 @@ def game_over():
         base.hideturtle()
         game_over_write = turtle.Turtle()
         game_over_write.write("GAME OVER", True, align="center" ,font=("Arial", 100, "normal"))
-        game_over_write.penup()
         game_over_constant = 1
 
 
