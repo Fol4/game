@@ -85,9 +85,8 @@ enemy_spawn_detector = 0
 window = turtle.Screen()
 window.setup(1200 + 3, 800 + 3)
 window.screensize(1200, 800)
-# background = "image/images/background.png"
-# window.bgpic(background)
-window.bgcolor('black')
+background = "image/images/background.png"
+window.bgpic(background)
 window.onclick(my_missile_spawn)
 
 
