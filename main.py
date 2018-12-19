@@ -65,11 +65,25 @@ def missile_contact():
                 enemy_missiles_data.remove(enemy_info)
                 my_info['status'] = 'explode'
                 my_missile.shape('circle')
+
+def base_health():
+    global base_hp
+    for enemy_info in enemy_missiles_data:
+        status = enemy_info['status']
+        if status == 'explode':
+            base_hp -= 100
+            if base_hp == 0 :
+                base.clear()
+                base.hideturtle()
+
+
+
 'Constatnt and database'
 my_missiles_data =[]
 enemy_missiles_data = []
 BASE_X , BASE_Y = 0 , -350
 enemy_spawn_detector = 0
+base_hp = 500
 
 'Window settings'
 window = turtle.Screen()
@@ -79,6 +93,13 @@ background = "image/images/background.png"
 window.bgpic(background)
 window.onclick(my_missile_spawn)
 
+'All base'
+base = turtle.Turtle(visible = False)
+base.penup()
+base.setpos(BASE_X , BASE_Y)
+window.register_shape('image/images/base.gif')
+base.shape('image/images/base.gif')
+base.showturtle()
 
 while True:
     window.update()
@@ -86,6 +107,7 @@ while True:
     if enemy_spawn_detector % 100 == 0:
         enemy_spawn_detector = 0
         enemy_missile_spawn()
+    base_health()
     missile_contact()
     flight_of_missile(data = my_missiles_data)
     flight_of_missile(data = enemy_missiles_data)
