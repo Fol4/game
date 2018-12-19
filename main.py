@@ -1,5 +1,4 @@
 import turtle
-import math
 import random
 
 
@@ -15,7 +14,8 @@ def my_missile_spawn(x,y):
     this_missile = {'missile': my_missile ,
                     'target': [x,y],
                     'status': 'launched',
-                    'radius': 0}
+                    'radius': 0,
+                    'explode': 0}
     my_missiles_data.append(this_missile)
 
 def enemy_missile_spawn():
@@ -32,7 +32,8 @@ def enemy_missile_spawn():
     this_missile = {'missile': enemy_missile,
                     'target': [BASE_X, BASE_Y],
                     'status': 'launched',
-                    'radius': 0}
+                    'radius': 0,
+                    'explode': 0}
     enemy_missiles_data.append(this_missile)
 
 def flight_of_missile(data):
@@ -46,6 +47,7 @@ def flight_of_missile(data):
                 info['status'] = 'explode'
                 missile.shape('circle')
         elif status == 'explode':
+            info['explode'] = 1
             info['radius'] += 1
             if info['radius'] > 5:
                 missile.clear()
@@ -70,7 +72,7 @@ def base_health():
     global base_hp
     for enemy_info in enemy_missiles_data:
         status = enemy_info['status']
-        if status == 'explode':
+        if status == 'explode' and enemy_info['explode'] == 0:
             base_hp -= 100
 
 def game_over():
@@ -82,14 +84,24 @@ def game_over():
         game_over_write.write("GAME OVER", True, align="center" ,font=("Arial", 100, "normal"))
         game_over_constant = 1
 
-
+# def spawn_object(pic, x, y):
+#     object = turtle.Turtle(visible=False)
+#     object.penup()
+#     object.setpos(x, y)
+#     window.register_shape(pic)
+#     object.shape(pic)
+#     object.showturtle()
+#     info = {'object': pic,
+#             'status': 1}
+#     all_object.append(info)
 
 'Constant and database'
 my_missiles_data =[]
 enemy_missiles_data = []
+all_object = []
 BASE_X , BASE_Y = 0 , -350
 enemy_spawn_detector = 0
-base_hp = 100
+base_hp = 1000
 game_over_constant = 0
 
 'Window settings'
@@ -107,6 +119,14 @@ base.setpos(BASE_X , BASE_Y)
 window.register_shape('image/images/base.gif')
 base.shape('image/images/base.gif')
 base.showturtle()
+
+# 'All pic'
+# missile_pic = 'image/images/missile.gif'
+# house= 'image/images/house_1.gif'
+# kremlin = 'image/images/kremlin_1.gif'
+# nuclear = 'image/images/nuclear_1.gif'
+# skyscraper = 'image/images/skyscraper_1.gif'
+
 
 while True:
     window.update()
